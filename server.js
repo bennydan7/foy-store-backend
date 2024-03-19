@@ -3,6 +3,7 @@ const express = require("express");
 const cors = require("cors");
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const Items = require("./Item");
+const port = process.env.PORT || 5000;
 
 const app = express();
 app.use(cors());
@@ -42,8 +43,8 @@ app.post("/create-checkout-session", async (req, res) => {
         allowed_countries: ["US", "CA"],
       },
       mode: "payment",
-      success_url: "http://localhost:3000/checkout/success", // Redirect URL after successful payment
-      cancel_url: "http://localhost:3000/cancel", // Redirect URL after canceled payment
+      success_url: "https://foy-store-frontend.vercel.app/checkout/success", // Redirect URL after successful payment
+      cancel_url: "https://foy-store-frontend.vercel.app/checkout/cancel", // Redirect URL after canceled payment
       line_items: lineItems,
     });
 
@@ -55,6 +56,6 @@ app.post("/create-checkout-session", async (req, res) => {
   }
 });
 
-app.listen(5000, () => {
-  console.log("Server is running on port 5000");
+app.listen(port, () => {
+  console.log(`server is running on port ${port}`);
 });
