@@ -43,8 +43,8 @@ app.post("/create-checkout-session", async (req, res) => {
         allowed_countries: ["US", "CA"],
       },
       mode: "payment",
-      success_url: "https://foy-store-frontend.vercel.app/checkout/success", // Redirect URL after successful payment
-      cancel_url: "https://foy-store-frontend.vercel.app/checkout/cancel", // Redirect URL after canceled payment
+      success_url: "https://foyclothing.store/checkout/success", // Redirect URL after successful payment
+      cancel_url: "https://foyclothing.store/checkout/cancel", // Redirect URL after canceled payment
       line_items: lineItems,
     });
 
