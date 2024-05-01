@@ -40,7 +40,7 @@ app.post("/create-checkout-session", async (req, res) => {
       },
       billing_address_collection: "auto",
       shipping_address_collection: {
-        allowed_countries: ["US", "CA"],
+        allowed_countries: [],
       },
       mode: "payment",
       success_url: "https://foyclothing.store/checkout/success", // Redirect URL after successful payment
