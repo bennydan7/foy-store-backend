@@ -11,7 +11,7 @@ app.use(express.json());
 
 // Create a checkout session
 app.post("/create-checkout-session", async (req, res) => {
-  const { products, userName, email, shippingAddress } = req.body; // Add shippingAddress from request body
+  const { products, userName, email } = req.body;
   try {
     // Construct line items for the checkout session
     const lineItems = await Promise.all(
@@ -40,16 +40,12 @@ app.post("/create-checkout-session", async (req, res) => {
       },
       billing_address_collection: "auto",
       shipping_address_collection: {
-        // Modify shipping address collection
-        allowed_countries: ["US"], // Set allowed countries for shipping
+        allowed_countries: [],
       },
       mode: "payment",
       success_url: "https://foyclothing.store/checkout/success", // Redirect URL after successful payment
       cancel_url: "https://foyclothing.store/checkout/cancel", // Redirect URL after canceled payment
       line_items: lineItems,
-      // Add tax calculation based on shipping address
-      shipping_rates: ["YOUR_SHIPPING_RATE_ID"], // Replace with your actual shipping rate ID
-      shipping_address: shippingAddress, // Pass shipping address to calculate taxes
     });
 
     // Return the session ID to the client
