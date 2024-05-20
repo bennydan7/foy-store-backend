@@ -50,6 +50,8 @@ app.post("/create-checkout-session", async (req, res) => {
             currency: "usd",
           },
           display_name: "Next day air",
+          tax_behavior: "exclusive",
+          tax_code: "txcd_92010001",
           delivery_estimate: {
             minimum: {
               unit: "business_day",
