@@ -1,22 +1,31 @@
-require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
-const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+const stripe = require("stripe");
 const Items = require("./Item");
-const port = process.env.PORT || 5000;
+
+// Load environment variables
+require("dotenv").config();
 
 const app = express();
+const port = process.env.PORT || 5000;
+
 app.use(cors());
 app.use(express.json());
 
+// Configure Stripe
+const configureStripe = () => {
+  return stripe(process.env.STRIPE_SECRET_KEY);
+};
+
 // Create a checkout session
 app.post("/create-checkout-session", async (req, res) => {
-  const { products, userName, email } = req.body;
+  const { products, email } = req.body;
   try {
+    const stripeInstance = configureStripe();
+
     // Construct line items for the checkout session
     const lineItems = await Promise.all(
       products.map(async (product) => {
-        // Retrieve product information from your database or wherever it's stored
         const item = Items.find((item) => item.id === product.id);
         return {
           price_data: {
@@ -24,27 +33,54 @@ app.post("/create-checkout-session", async (req, res) => {
             product_data: {
               name: item.name,
             },
-            unit_amount: item.price * 100, // Convert price to cents
+            unit_amount: item.price * 100,
           },
           quantity: product.count,
         };
       })
     );
 
-    // Create a checkout session with the line items
-    const session = await stripe.checkout.sessions.create({
+    // Create shipping options
+    const shippingOptions = [
+      {
+        shipping_rate_data: {
+          type: "fixed_amount",
+          fixed_amount: {
+            amount: 1500,
+            currency: "usd",
+          },
+          display_name: "Next day air",
+          delivery_estimate: {
+            minimum: {
+              unit: "business_day",
+              value: 1,
+            },
+            maximum: {
+              unit: "business_day",
+              value: 1,
+            },
+          },
+        },
+      },
+    ];
+
+    // Create a checkout session with the line items and shipping options
+    const session = await stripeInstance.checkout.sessions.create({
       payment_method_types: ["card"],
       customer_email: email,
-      phone_number_collection: {
+      mode: "payment",
+      automatic_tax: {
         enabled: true,
       },
-      billing_address_collection: "auto",
+      success_url: "https://foyclothing.store/checkout/success",
+      cancel_url: "https://foyclothing.store/home",
       shipping_address_collection: {
         allowed_countries: [],
+        automatic_tax: {
+          enabled: true,
+        },
       },
-      mode: "payment",
-      success_url: "https://foyclothing.store/checkout/success", // Redirect URL after successful payment
-      cancel_url: "https://foyclothing.store/checkout/cancel", // Redirect URL after canceled payment
+      shipping_options: shippingOptions,
       line_items: lineItems,
     });
 
