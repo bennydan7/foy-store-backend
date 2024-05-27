@@ -80,7 +80,7 @@ app.post("/create-checkout-session", async (req, res) => {
       shipping_address_collection: {
         allowed_countries: [], // Adjust this based on your requirements
       },
-      billing_address_collection: "required",
+      shipping_address_collection: "required",
       shipping_options: shippingOptions,
       line_items: lineItems,
     });
