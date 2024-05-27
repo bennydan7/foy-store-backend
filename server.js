@@ -31,7 +31,8 @@ app.post("/create-checkout-session", async (req, res) => {
           price_data: {
             currency: "usd",
             product_data: {
-              name: item.name,
+              name: `${item.name} (Size: ${product.size})`,
+              description: product.shortDescription, // Add shortDescription here
             },
             unit_amount: item.price * 100,
           },
@@ -77,10 +78,7 @@ app.post("/create-checkout-session", async (req, res) => {
       success_url: "https://foyclothing.store/checkout/success",
       cancel_url: "https://foyclothing.store",
       shipping_address_collection: {
-        allowed_countries: [],
-      },
-      automatic_tax: {
-        enabled: true,
+        allowed_countries: [], // Adjust this based on your requirements
       },
       shipping_options: shippingOptions,
       line_items: lineItems,

@@ -23,7 +23,7 @@ const Items = [
     shortDescription: "[WHITE]",
     longDescription: "",
     price: 30,
-    category: "Beanies",
+    category: "Tees",
   },
   {
     id: "4",
@@ -36,7 +36,7 @@ const Items = [
     category: "Caps",
   },
   {
-    id: "6",
+    id: "5",
     name: "FOY TRUCKER HAT",
     shortDescription: "[BLACK & WHITE]",
     longDescription:
