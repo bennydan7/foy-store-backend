@@ -1,14 +1,3 @@
-const tee3 = require("./assets/foyImages/01(tee).png");
-const tee4 = require("./assets/foyImages/02(tee).png");
-const cap1 = require("./assets/foyImages/03(cap).png");
-const cap2 = require("./assets/foyImages/04(cap).png");
-const cap3 = require("./assets/foyImages/05(cap).png");
-const tee1 = require("./assets/foyImages/06(tee).png");
-const tee2 = require("./assets/foyImages/07(tee).png");
-const cap1Front = require("./assets/foyImages/10(cap).png");
-const cap2Front = require("./assets/foyImages/09(cap).png");
-const cap3Front = require("./assets/foyImages/08(cap).png");
-
 const Items = [
   {
     id: "1",
