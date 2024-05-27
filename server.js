@@ -75,7 +75,7 @@ app.post("/create-checkout-session", async (req, res) => {
         enabled: true,
       },
       success_url: "https://foyclothing.store/checkout/success",
-      cancel_url: "https://foyclothing.store/home",
+      cancel_url: "https://foyclothing.store",
       shipping_address_collection: {
         allowed_countries: [],
       },
