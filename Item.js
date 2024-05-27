@@ -1,13 +1,13 @@
-import tee3 from "./assets/foyImages/01(tee).png";
-import tee4 from "./assets/foyImages/02(tee).png";
-import cap1 from "./assets/foyImages/03(cap).png";
-import cap2 from "./assets/foyImages/04(cap).png";
-import cap3 from "./assets/foyImages/05(cap).png";
-import tee1 from "./assets/foyImages/06(tee).png";
-import tee2 from "./assets/foyImages/07(tee).png";
-import cap1Front from "./assets/foyImages/10(cap).png";
-import cap2Front from "./assets/foyImages/09(cap).png";
-import cap3Front from "./assets/foyImages/08(cap).png";
+const tee3 = require("./assets/foyImages/01(tee).png");
+const tee4 = require("./assets/foyImages/02(tee).png");
+const cap1 = require("./assets/foyImages/03(cap).png");
+const cap2 = require("./assets/foyImages/04(cap).png");
+const cap3 = require("./assets/foyImages/05(cap).png");
+const tee1 = require("./assets/foyImages/06(tee).png");
+const tee2 = require("./assets/foyImages/07(tee).png");
+const cap1Front = require("./assets/foyImages/10(cap).png");
+const cap2Front = require("./assets/foyImages/09(cap).png");
+const cap3Front = require("./assets/foyImages/08(cap).png");
 
 const Items = [
   {
@@ -65,4 +65,4 @@ const Items = [
   },
 ];
 
-export default Items;
+module.exports = Items;
